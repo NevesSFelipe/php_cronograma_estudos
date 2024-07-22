@@ -1,0 +1,8 @@
+{
+    "name": "fsn/cronograma-estudos",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    }
+}
