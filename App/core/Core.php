@@ -1,5 +1,7 @@
 <?php
 
+    namespace App\core;
+
     class Core {
 
         private string $controller;
