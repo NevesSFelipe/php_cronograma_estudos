@@ -31,6 +31,24 @@
  
         }
 
+        public function editarStatusCurso(int $idCurso, bool $novoStatusCurso): array
+        {
+            $where = "id_curso = :id_curso";
+            $sql = "UPDATE cursos SET status = :status WHERE $where";
+
+            $stm = $this->conexao->prepare($sql);
+
+            $stm->bindParam(':id_curso', $idCurso);
+            $stm->bindParam(':status', $novoStatusCurso);
+
+            $retorno = ($stm->execute() === false || $stm->rowCount() == 0) 
+                ? array('status' => 'false', 'data' => 'Não foi possível atualizar o status do curso.')
+                : array('status' => 'true', 'data' => 'Status do curso atualizado com sucesso.')
+            ;
+        
+            return $retorno;
+        }
+
         private function tratarRetorno(array $retorno): array
         {
             header('Content-Type: application/json');

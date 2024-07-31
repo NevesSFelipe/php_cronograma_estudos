@@ -11,10 +11,12 @@
     class IndexController extends Controller implements Template {
 
         private PDO $conexao;
+        private CursosModel $cursos;
 
         public function __construct()
         {
-            $this->conexao = DataBase::estabelecerConexaoSQLITE();
+            $this->conexao = DataBase::estabelecerConexaoMySQL();
+            $this->cursos  = new CursosModel($this->conexao);
         }
 
         public function index()
@@ -22,11 +24,22 @@
             $this->carregarView('index');    
         }
 
-        public function consultarCursos($titulo_formacao = '')
+        public function consultarCursos(string $titulo_formacao = '')
         {
-            $cursos = new CursosModel($this->conexao);
-            $arrayCursos = $cursos->consultarCursos($titulo_formacao);
+            $arrayCursos = $this->cursos->consultarCursos($titulo_formacao);
             print(json_encode($arrayCursos));
+        }
+
+        public function editarStatusCurso()
+        {
+            $input = file_get_contents('php://input');
+            $dados = json_decode($input, true);
+            extract($dados);
+
+            $novoStatusCurso = !$novoStatusCurso;
+
+            $retorno = $this->cursos->editarStatusCurso($idCurso, $novoStatusCurso);
+            print(json_encode($retorno));
         }
 
     }

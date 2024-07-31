@@ -78,6 +78,8 @@ function montarTabela(dadosTabela) {
                 input.type  = 'checkbox';
                 input.name  = 'checkbox_' + curso.id;
                 input.value = curso.status;
+                input.checked = curso.status;
+                input.addEventListener('click', () => {editarStatusCurso(curso.id_curso, curso.status)});
             tdTituloFormacao.appendChild(input);
         trCursos.appendChild(tdTituloFormacao);
 
@@ -95,4 +97,36 @@ function montarTabela(dadosTabela) {
     
      divTable.append(table);   
 
+}
+
+async function editarStatusCurso(idCurso, statusAtual) {
+
+    const dados = {
+        idCurso: idCurso,
+        novoStatusCurso: statusAtual
+    };
+
+    try {
+        const url = url_base + `index/editarStatusCurso`;
+        const resposta = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados) 
+        });
+
+        if (!resposta.ok) {
+            throw new Error(`Erro na requisição: ${resposta.statusText}`);
+        }
+
+        const resultado = await resposta.json();
+        alert(resultado['data']);
+        consultarCursos();
+
+    } catch (erro) {
+        console.error('Erro:', erro);
+        return null;
+    }
+        
 }
