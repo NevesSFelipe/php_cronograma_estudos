@@ -49,6 +49,22 @@
             return $retorno;
         }
 
+        public function buscarCursoPorNome(string $nome_curso): array
+        {
+            $where = "WHERE titulo_curso LIKE '%{$nome_curso}%'";
+
+            $sql = "SELECT * FROM cursos {$where} ORDER BY titulo_curso ASC";
+
+            $stm = $this->conexao->prepare($sql);
+
+            $retorno = $stm->execute() === false 
+                ? $this->tratarRetorno(array()) 
+                : $this->tratarRetorno($stm->fetchAll(PDO::FETCH_ASSOC))
+            ;
+        
+            return $retorno;
+        }
+
         private function tratarRetorno(array $retorno): array
         {
             header('Content-Type: application/json');

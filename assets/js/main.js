@@ -4,6 +4,7 @@ init();
 
 function init() {
     mapearChangeSelectFormacoes();
+    mapearBtnBuscarCursoPorNome();
 }
 
 function mapearChangeSelectFormacoes() {
@@ -129,4 +130,38 @@ async function editarStatusCurso(idCurso, statusAtual) {
         return null;
     }
         
+}
+
+function mapearBtnBuscarCursoPorNome() {
+
+    document.getElementById("btnBuscarCursoPorNome").addEventListener("click", function() {
+        buscarCursoPorNome();
+    });
+
+    document.getElementById("inputNomeCursoProcurado").addEventListener("keypress", function(event) {
+        if (event.key === "Enter" || event.keyCode === 13) {
+            buscarCursoPorNome();   // Chama a função
+        }
+    });
+
+}
+
+async function buscarCursoPorNome() {
+    
+    let nomeCursoProcurado = document.getElementById('inputNomeCursoProcurado').value;
+
+    fetch(url_base + `index/buscarCursoPorNome/${nomeCursoProcurado}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erro na requisição: " + response.statusText);
+            }
+            return response.json();
+        })
+        .then((cursos) => {
+            montarTabela(cursos.data);
+        })
+        .catch((error) => {
+            console.error("Erro:", error);
+        });
+
 }

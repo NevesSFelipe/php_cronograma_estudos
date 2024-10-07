@@ -27,27 +27,44 @@
             
             <h1 class="text-dark mb-3">Cursos</h1>
 
-            <div class="mt-3 mb-3 form-group">
+            <div class="row">
+
+                <div class="col-sm-5 mt-3 mb-3 form-group">
+                    
+                    <select class="form-control" id='select_formacoes'>
+                        <option disabled selected>Selecione uma formação</option>
+                        <option value="">Todas as formações</option>
+                        <option value="Backend">Backend</option>
+                        <option value="DataScience">DataScience</option>
+                        <option value="DevOps">DevOps</option>
+                        <option value="Frontend">Frontend</option>
+                        <option value="Gestão">Gestão</option>
+                        <option value="IA">IA</option>
+                        <option value="Mobile">Mobile</option>
+                        <option value="UX">UX</option>
+                    </select>
                 
-                <select class="form-control" id='select_formacoes'>
-                    <option disabled selected>Selecione uma formação</option>
-                    <option value="">Todas as formações</option>
-                    <option value="Backend">Backend</option>
-                    <option value="DataScience">DataScience</option>
-                    <option value="DevOps">DevOps</option>
-                    <option value="Frontend">Frontend</option>
-                    <option value="Gestão">Gestão</option>
-                    <option value="IA">IA</option>
-                    <option value="Mobile">Mobile</option>
-                    <option value="UX">UX</option>
-                </select>
-            
+                </div>
+
+                <div class="col-sm-6 mt-3 mb-3 form-group">
+                    <input id="inputNomeCursoProcurado" placeholder="Buscar curso..." class="form-control" type="text">
+                </div>
+
+                <div class="col-sm-1 mt-3 mb-3 form-group">
+                    <button id="btnBuscarCursoPorNome" class="form-control btn btn-dark">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+
             </div>
+
+
             <div id="tabelaCursos"><!-- Tabela construida com JS --></div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="<?= URL_BASE . 'assets/js/main.js' ?>"></script>
+        <script src="<?= URL_BASE . 'assets/js/main.js?' . time() ?>"></script>
+        <script src="https://kit.fontawesome.com/910e6444fa.js" crossorigin="anonymous"></script>
     </body>
 
 </html>

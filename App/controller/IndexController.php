@@ -30,6 +30,12 @@
             print(json_encode($arrayCursos));
         }
 
+        public function buscarCursoPorNome(string $nome_curso)
+        {
+            $arrayCursos = $this->cursos->buscarCursoPorNome($nome_curso);
+            print(json_encode($arrayCursos));
+        }
+
         public function editarStatusCurso()
         {
             $input = file_get_contents('php://input');
